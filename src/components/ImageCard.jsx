@@ -18,11 +18,25 @@ const ImageCard = ({image, setTotalClicks}) => {
       });
 
     const [reveal, setReveal] = useState(false)
+    const [arr, setArr] = useState([0,0])
+
+    
+    const addToArray = (x) => {
+        console.log(x)
+        const vv = [x, ...arr.slice(0, 1)]
+        setArr(vv)
+    }
+    
 
     const onImageClick = () => {
         console.log('clicked image with id: ', image.id, ' and tag: ', image.tag)
         // setReveal(true)
         setTotalClicks(prevCount => prevCount+1)
+        console.log('tags in 2 array: ', arr)
+        addToArray(image.tag)
+        if(arr[0]===arr[1]){
+            setReveal(true)
+        }
     }
   return (
     <Box 
