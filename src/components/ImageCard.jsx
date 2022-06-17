@@ -7,7 +7,7 @@ import {
 import { isValidMotionProp, motion } from 'framer-motion';
 
 
-const ImageCard = ({image, setTotalClicks}) => {
+const ImageCard = ({card, index, setTotalClicks}) => {
     
     const ChakraBox = chakra(motion.div, {
         /**
@@ -17,26 +17,17 @@ const ImageCard = ({image, setTotalClicks}) => {
         shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',
       });
 
-    const [reveal, setReveal] = useState(false)
+    const [reveal, setReveal] = useState(true)
     const [arr, setArr] = useState([0,0])
 
-    
-    const addToArray = (x) => {
-        console.log(x)
-        const vv = [x, ...arr.slice(0, 1)]
-        setArr(vv)
-    }
+
     
 
     const onImageClick = () => {
-        console.log('clicked image with id: ', image.id, ' and tag: ', image.tag)
+        console.log('clicked image with id: ', card.id, ' and index: ', index)
         // setReveal(true)
         setTotalClicks(prevCount => prevCount+1)
-        console.log('tags in 2 array: ', arr)
-        addToArray(image.tag)
-        if(arr[0]===arr[1]){
-            setReveal(true)
-        }
+        
     }
   return (
     <Box 
@@ -70,7 +61,7 @@ const ImageCard = ({image, setTotalClicks}) => {
             width='130px'
         >
             {reveal ?  
-                <Image src={image.url} alt='ghana' height='100px' width='130px' />
+                <Image src={card.url} alt='ghana' height='100px' width='130px' />
                 :
                 <img src='assets/logo.svg' alt='demo ico' /> 
             }
