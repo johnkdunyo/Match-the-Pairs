@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { 
     Box, 
     chakra, 
@@ -7,7 +7,7 @@ import {
 import { isValidMotionProp, motion } from 'framer-motion';
 
 
-const ImageCard = ({card, index, setTotalClicks}) => {
+const ImageCard = ({card, index, onCardClick,openCards, matchedCards, setTotalClicks}) => {
     
     const ChakraBox = chakra(motion.div, {
         /**
@@ -17,18 +17,28 @@ const ImageCard = ({card, index, setTotalClicks}) => {
         shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',
       });
 
-    const [reveal, setReveal] = useState(true)
+    const [reveal, setReveal] = useState(false)
     const [arr, setArr] = useState([0,0])
 
 
-    
+    useEffect(()=>{
+        console.log(matchedCards)
+        if(matchedCards.includes(index)){
+            setReveal(true)
+        }
+    }, [index, matchedCards])
 
     const onImageClick = () => {
-        console.log('clicked image with id: ', card.id, ' and index: ', index)
+        // console.log('clicked image with id: ', card.id, ' and index: ', index)
         // setReveal(true)
         setTotalClicks(prevCount => prevCount+1)
+        onCardClick(index)
+          
         
     }
+
+    
+
   return (
     <Box 
         // borderWidth='1px' 
@@ -40,17 +50,6 @@ const ImageCard = ({card, index, setTotalClicks}) => {
     >
        
         <ChakraBox
-            // animate={{
-            //     scale: [1, 2, 2, 1, 1],
-            //     rotate: [0, 0, 270, 270, 0],
-            //     borderRadius: ["20%", "20%", "50%", "50%", "20%"],
-            //   }}
-            // transition={{
-            //     duration: 3,
-            //     ease: "easeInOut",
-            //     repeat: Infinity,
-            //     repeatType: "loop",
-            // }}
             bgGradient="linear(to-l, #042b3a, #042b3a)"
             display="flex"
             justifyContent="center"

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { 
     Box, 
     Container, 
@@ -28,12 +28,15 @@ const Main = () => {
         {id: 8, url: 'assets/giraffe.jpeg'}
     ]
 
-    const [cards, setCard] = useState(shuffleFisherYates([...images, ...images]))
+    const [cards, setCard] = useState(([...images, ...images]))
 
     const [totalClicks, setTotalClicks] = useState(0);
+    const [openCards, setOpenCards] = useState([]); //card clicked
+
+    const [matchedCards, setMatchedCards] = useState([]);
   
 
-    // console.log(arr2)
+    console.log(cards)
 
     const onClickEndGame = () =>{
         setTotalClicks(0)
@@ -43,10 +46,32 @@ const Main = () => {
         setTotalClicks(0)
     }
 
-    const handleImageClick = () => {
-        console.log('hdnakibg on image click')
+    const handleImageClick = (index) => {
+        console.log('main handling image click at index: ', index)
+        if(openCards.length===2){
+            console.log('hhh')
+            if(cards[openCards[0]].id===cards[openCards[1]].id){
+                setMatchedCards([...openCards])
+                setOpenCards([])
+            }else{
+                setOpenCards([index])
+            }
+            
+        }else{
+            setOpenCards([index, ...openCards.slice(0, 1)])
+        }
+        
+        
+        
     }
 
+    console.log('cards index open: ',openCards)
+    console.log('mathced cards: ', matchedCards)
+ 
+    const checkMatcth = ()=>{
+
+    }
+    
 
   return (
    <Box minHeight="100vh" display="flex" flexDir="column">
@@ -71,8 +96,10 @@ const Main = () => {
                         key={index} 
                         card={card} 
                         index={index}
-                        onClick={handleImageClick}
+                        onCardClick={handleImageClick}
                         setTotalClicks={setTotalClicks} 
+                        matchedCards={matchedCards}
+                        openCards={openCards}
                     />
                 ))}
             </SimpleGrid>
