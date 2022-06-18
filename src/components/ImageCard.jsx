@@ -18,7 +18,7 @@ const ImageCard = ({card, index, onCardClick,openCards, matchedCards, setTotalCl
       });
 
     const [reveal, setReveal] = useState(false)
-    const [arr, setArr] = useState([0,0])
+    // const [arr, setArr] = useState([0,0])
 
 
     useEffect(()=>{
