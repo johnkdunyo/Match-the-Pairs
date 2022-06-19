@@ -41,7 +41,7 @@ const ImageCard = ({card, index, onCardClick,openCards, matchedCards, setTotalCl
 
   return (
     <Box 
-        // borderWidth='1px' 
+        borderWidth='1px' 
         borderRadius='lg' 
         overflow='hidden'
         onClick={onImageClick}
@@ -62,7 +62,7 @@ const ImageCard = ({card, index, onCardClick,openCards, matchedCards, setTotalCl
             {reveal ?  
                 <Image src={card.url} alt='ghana' height='100px' width='130px' />
                 :
-                <img src='assets/logo.svg' alt='demo ico' /> 
+                <img src='assets/logo.svg' alt='demo iconn' /> 
             }
           
         </ChakraBox>
