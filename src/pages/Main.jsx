@@ -29,11 +29,13 @@ const Main = () => {
     ]
 
     const [cards, setCard] = useState(([...images, ...images]))
+    const [clickedCards, setClickedCards] = useState([]);
 
     const [totalClicks, setTotalClicks] = useState(0);
-    const [openCards, setOpenCards] = useState([]); //card clicked
+
 
     const [matchedCards, setMatchedCards] = useState([]);
+    const [openCards, setOpenCards] = useState([])  //limit to only 2 elements
   
 
     console.log(cards)
@@ -46,31 +48,20 @@ const Main = () => {
         setTotalClicks(0)
     }
 
-    const handleImageClick = (index) => {
+    const onCardClick = (index) => {
         console.log('main handling image click at index: ', index)
-        if(openCards.length===2){
-            console.log('hhh')
-            if(cards[openCards[0]].id===cards[openCards[1]].id){
-                setMatchedCards([...openCards])
-                setOpenCards([])
-            }else{
-                setOpenCards([index])
-            }
-            
-        }else{
-            setOpenCards([index, ...openCards.slice(0, 1)])
-        }
+        setMatchedCards([...matchedCards, index])
         
         
         
     }
 
-    console.log('cards index open: ',openCards)
-    console.log('mathced cards: ', matchedCards)
- 
-    const checkMatcth = ()=>{
+    useEffect(()=>{
+        
+    })
+    
 
-    }
+
     
 
   return (
@@ -96,10 +87,13 @@ const Main = () => {
                         key={index} 
                         card={card} 
                         index={index}
-                        onCardClick={handleImageClick}
+                        onCardClick={onCardClick}
                         setTotalClicks={setTotalClicks} 
                         matchedCards={matchedCards}
+
                         openCards={openCards}
+                        setOpenCards={setOpenCards}
+
                     />
                 ))}
             </SimpleGrid>

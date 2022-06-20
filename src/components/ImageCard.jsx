@@ -7,7 +7,7 @@ import {
 import { isValidMotionProp, motion } from 'framer-motion';
 
 
-const ImageCard = ({card, index, onCardClick,openCards, matchedCards, setTotalClicks}) => {
+const ImageCard = ({card, index, onCardClick, matchedCards, setTotalClicks, openCards, setOpenCards}) => {
     
     const ChakraBox = chakra(motion.div, {
         /**
@@ -21,21 +21,38 @@ const ImageCard = ({card, index, onCardClick,openCards, matchedCards, setTotalCl
     // const [arr, setArr] = useState([0,0])
 
 
+    
+
     useEffect(()=>{
-        console.log(matchedCards)
-        if(matchedCards.includes(index)){
-            setReveal(true)
+        const unsub = () => {
+            if(matchedCards.includes(index)){
+                
+                setReveal(true)
+            }else {
+                setReveal(false)
+            }
         }
-    }, [index, matchedCards])
+
+        return () => unsub()
+    })
+ 
 
     const onImageClick = () => {
         // console.log('clicked image with id: ', card.id, ' and index: ', index)
         // setReveal(true)
         setTotalClicks(prevCount => prevCount+1)
+        setOpenCards(index)
         onCardClick(index)
+
+        setReveal(true)
           
         
     }
+
+
+
+
+  
 
     
 
