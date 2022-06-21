@@ -7,7 +7,7 @@ import {
 import { isValidMotionProp, motion } from 'framer-motion';
 
 
-const ImageCard = ({card, index, onCardClick, matchedCards, setTotalClicks, openCards, setOpenCards}) => {
+const ImageCard = ({card, index, onCardClick, matchedCards, setTotalClicks }) => {
     
     const ChakraBox = chakra(motion.div, {
         /**
@@ -23,28 +23,30 @@ const ImageCard = ({card, index, onCardClick, matchedCards, setTotalClicks, open
 
     
 
-    useEffect(()=>{
-        const unsub = () => {
-            if(matchedCards.includes(index)){
+    // useEffect(()=>{
+    //     const unsub = () => {
+    //         if(matchedCards.includes(index)){
                 
-                setReveal(true)
-            }else {
-                setReveal(false)
-            }
-        }
+    //             setReveal(true)
+    //         }else {
+    //             setReveal(false)
+    //         }
+    //     }
 
-        return () => unsub()
-    })
+    //     return () => unsub()
+    // })
  
 
     const onImageClick = () => {
         // console.log('clicked image with id: ', card.id, ' and index: ', index)
         // setReveal(true)
         setTotalClicks(prevCount => prevCount+1)
-        setOpenCards(index)
         onCardClick(index)
 
-        setReveal(true)
+       
+        setTimeout(()=>{
+            setReveal(true)
+        }, 2000)
           
         
     }
@@ -76,7 +78,7 @@ const ImageCard = ({card, index, onCardClick, matchedCards, setTotalClicks, open
             height='100px'
             width='130px'
         >
-            {reveal ?  
+            {(matchedCards.length > 0 && matchedCards.includes(index)) ?  
                 <Image src={card.url} alt='ghana' height='100px' width='130px' />
                 :
                 <img src='assets/logo.svg' alt='demo iconn' /> 

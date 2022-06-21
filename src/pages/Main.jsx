@@ -14,6 +14,7 @@ import ImageCard from '../components/ImageCard'
 import ScoreBar from '../components/ScoreBar'
 
 import { shuffleFisherYates } from '../utils/utils'
+import { m } from 'framer-motion'
 
 const Main = () => {
 
@@ -29,16 +30,13 @@ const Main = () => {
     ]
 
     const [cards, setCard] = useState(([...images, ...images]))
-    const [clickedCards, setClickedCards] = useState([]);
+
 
     const [totalClicks, setTotalClicks] = useState(0);
 
 
     const [matchedCards, setMatchedCards] = useState([]);
-    const [openCards, setOpenCards] = useState([])  //limit to only 2 elements
-  
 
-    console.log(cards)
 
     const onClickEndGame = () =>{
         setTotalClicks(0)
@@ -50,17 +48,33 @@ const Main = () => {
 
     const onCardClick = (index) => {
         console.log('main handling image click at index: ', index)
-        setMatchedCards([...matchedCards, index])
+        setMatchedCards(matchedCards=>{
+            if(matchedCards.length === 0 || matchedCards.length % 2 ===0){
+                // ie if itsn empty or length is odd... just add and do nothinh
+                console.log('EVEN->>length is: ', matchedCards.length, ' and content is : ', matchedCards)
+                return [...matchedCards, index]
+            } else{
+                // this ie even, so we have to check and either maintain or remove
+                console.log('ODD->>length is: ', matchedCards.length, ' and content is : ', matchedCards)
+                if(cards[index].id===cards[matchedCards[matchedCards.length-1]].id){
+                    console.log('cards ids: id, ', cards[index].url, ' and macthc card id : ', cards[matchedCards[matchedCards.length-1]].url)
+                    return [...matchedCards, index]
+                }else{
+                    console.log('unmatch')
+                    const array = [...matchedCards]
+                    array.splice(-1)
+                    return array
+                }
+            }
+        })
         
         
         
     }
 
-    useEffect(()=>{
-        
-    })
-    
 
+    
+console.log(matchedCards)
 
     
 
@@ -91,8 +105,6 @@ const Main = () => {
                         setTotalClicks={setTotalClicks} 
                         matchedCards={matchedCards}
 
-                        openCards={openCards}
-                        setOpenCards={setOpenCards}
 
                     />
                 ))}
