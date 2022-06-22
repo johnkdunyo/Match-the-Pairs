@@ -30,7 +30,7 @@ const Main = () => {
         {id: 8, url: 'assets/giraffe.jpeg'}
     ]
 
-    const [cards, setCard] = useState(([...images, ...images]))
+    const [cards, setCard] = useState(shuffleFisherYates([...images, ...images]))
 
 
     const [totalClicks, setTotalClicks] = useState(0);
