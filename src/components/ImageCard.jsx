@@ -23,18 +23,7 @@ const ImageCard = ({card, index, onCardClick, matchedCards, setTotalClicks }) =>
 
     
 
-    // useEffect(()=>{
-    //     const unsub = () => {
-    //         if(matchedCards.includes(index)){
-                
-    //             setReveal(true)
-    //         }else {
-    //             setReveal(false)
-    //         }
-    //     }
 
-    //     return () => unsub()
-    // })
  
 
     const onImageClick = () => {
