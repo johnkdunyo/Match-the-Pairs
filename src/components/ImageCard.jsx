@@ -18,7 +18,7 @@ const ImageCard = ({card, index, onCardClick, matchedCards, setTotalClicks }) =>
       });
 
     const [reveal, setReveal] = useState(()=> matchedCards.includes(index) ? true : false)
-    // const [arr, setArr] = useState([0,0])
+    
 
 
     
